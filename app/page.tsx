@@ -20,7 +20,7 @@ const HomePage = () => {
             hospitality staffing application.
           </p>
           <Button asChild className="mt-4">
-            <Link href="/add-job">Get Started</Link>
+            <Link href="/add-employee">Get Started</Link>
           </Button>
         </div>
         <Image className="hidden lg:block" src={HomeImg} alt="Home image" />
