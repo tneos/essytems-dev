@@ -1,4 +1,4 @@
-function AddJobPage() {
-  return <h1>Add Job Page</h1>;
+function AddEmployeePage() {
+  return <h1>Add Employee Page</h1>;
 }
-export default AddJobPage;
+export default AddEmployeePage;
