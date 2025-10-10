@@ -8,10 +8,10 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@radix-ui/react-dropdown-menu";
+} from "./ui/dropdown-menu";
 import {Button} from "./ui/button";
 
-function ThemeToggle() {
+export default function ThemeToggle() {
   const {setTheme} = useTheme();
 
   return (
@@ -23,7 +23,7 @@ function ThemeToggle() {
           <span className="sr-only">Toggle theme</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
+      <DropdownMenuContent align="end" className="w-52" sideOffset={25}>
         <DropdownMenuItem onClick={() => setTheme("light")}>Light</DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme("dark")}>Dark</DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme("system")}>System</DropdownMenuItem>
@@ -31,4 +31,3 @@ function ThemeToggle() {
     </DropdownMenu>
   );
 }
-export default ThemeToggle;
