@@ -1,4 +1,10 @@
+import CreateEmployeeForm from "@/components/CreateEmployeeForm";
+
 function AddEmployeePage() {
-  return <h1>Add Employee Page</h1>;
+  return (
+    <>
+      <CreateEmployeeForm />
+    </>
+  );
 }
 export default AddEmployeePage;
