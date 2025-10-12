@@ -67,11 +67,11 @@ function CreateEmployeeForm() {
             labelText="Company Branch"
             items={Object.values(Branch)}
           />
-        </div>
 
-        <Button type="submit" className="self-end capitalize">
-          Add employee
-        </Button>
+          <Button type="submit" className="self-end capitalize">
+            Add employee
+          </Button>
+        </div>
       </form>
     </Form>
   );

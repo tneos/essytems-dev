@@ -49,13 +49,13 @@ export function CustomFormDate() {
   const [date, setDate] = React.useState<Date | undefined>(undefined);
 
   return (
-    <div className="flex flex-col gap-3">
-      <Label htmlFor="date" className="px-1">
+    <div className="flex flex-col w-full">
+      <Label htmlFor="date" className="px-1 mt-1">
         Date of birth
       </Label>
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
-          <Button variant="outline" id="date" className="w-48 justify-between font-normal">
+          <Button variant="outline" id="date" className="gap-4 mt-3 justify-between font-normal">
             {date ? date.toLocaleDateString() : "Select date"}
             <ChevronDownIcon />
           </Button>
