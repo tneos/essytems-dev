@@ -50,7 +50,7 @@ function CreateEmployeeForm() {
           {/* Position */}
           <CustomFormField name="position" control={form.control} />
           {/* Full name */}
-          <CustomFormField name="full name" control={form.control} />
+          <CustomFormField name="fullName" control={form.control} />
           {/* Date of birth */}
           <CustomFormDate />
           {/* Job status */}
