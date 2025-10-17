@@ -13,6 +13,11 @@ import {
 import {Button} from "./ui/button";
 import {Form} from "./ui/form";
 
+import {useMutation, useQueryClient} from "@tanstack/react-query";
+import {createEmployeeAction} from "@/utils/actions";
+import {useToast} from "./ui/use-toast";
+import {useRouter} from "next/navigation";
+
 import {CustomFormField, CustomFormSelect, CustomFormDate} from "./FormComponents";
 
 const formSchema = z.object({
@@ -34,10 +39,30 @@ function CreateEmployeeForm() {
     },
   });
 
+  const queryClient = useQueryClient();
+  const {toast} = useToast();
+  const router = useRouter();
+  const {mutate, isPending} = useMutation({
+    mutationFn: (values: CreateAndEditEmployeeType) => createEmployeeAction(values),
+    onSuccess: data => {
+      if (!data) {
+        toast({description: "there was an error"});
+        return;
+      }
+      toast({description: "employee added"});
+      queryClient.invalidateQueries({queryKey: ["employees"]});
+      queryClient.invalidateQueries({queryKey: ["stats"]});
+      queryClient.invalidateQueries({queryKey: ["charts"]});
+
+      // Navigate user to employees page
+      router.push("/employees");
+    },
+  });
+
   // Submit handler
   function onSubmit(values: CreateAndEditEmployeeType) {
     // Use of form values
-
+    mutate(values);
     // This will be type-safe and validated
     console.log(values);
   }
@@ -68,8 +93,8 @@ function CreateEmployeeForm() {
             items={Object.values(Branch)}
           />
 
-          <Button type="submit" className="self-end capitalize">
-            Add employee
+          <Button type="submit" className="self-end capitalize" disabled={isPending}>
+            {isPending ? "loading" : "add employee"}
           </Button>
         </div>
       </form>
