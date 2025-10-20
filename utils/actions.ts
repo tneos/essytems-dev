@@ -2,10 +2,14 @@
 
 import prisma from "./db";
 import {auth} from "@clerk/nextjs";
-import {EmployeeType, CreateAndEditEmployeeType, createAndEditEmployeeSchema} from "./types";
+import {
+  EmployeeType,
+  CreateAndEditEmployeeType,
+  GetAllEmployeesActionType,
+  createAndEditEmployeeSchema,
+} from "./types";
 import {redirect} from "next/navigation";
 import {Prisma} from "@prisma/client";
-import dayjs from "dayjs";
 
 function authenticateClerkId(): string {
   const {userId} = auth();
@@ -35,5 +39,62 @@ export async function createEmployeeAction(
   } catch (error) {
     console.log(error);
     return null;
+  }
+}
+
+// Get all employees action
+export async function getAllEmployeesAction({
+  search,
+  jobStatus,
+  page = 1,
+  limit = 10,
+}: GetAllEmployeesActionType): Promise<{
+  employees: EmployeeType[];
+  count: number;
+  page: number;
+  totalPages: number;
+}> {
+  const userId = authenticateClerkId();
+
+  try {
+    let whereClause: Prisma.EmployeeWhereInput = {
+      clerkId: userId,
+    };
+
+    // Filter data based on conditions
+    if (search) {
+      whereClause = {
+        ...whereClause,
+        OR: [
+          {
+            position: {
+              contains: search,
+            },
+          },
+          {
+            fullName: {
+              contains: search,
+            },
+          },
+        ],
+      };
+    }
+
+    if (jobStatus && jobStatus !== "all") {
+      whereClause = {
+        ...whereClause,
+        status: jobStatus,
+      };
+    }
+
+    const employees: EmployeeType[] = await prisma.employee.findMany({
+      where: whereClause,
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+    return {employees, count: 0, page: 1, totalPages: 0};
+  } catch (error) {
+    return {employees: [], count: 0, page: 1, totalPages: 0};
   }
 }

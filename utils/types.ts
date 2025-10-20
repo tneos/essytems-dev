@@ -12,6 +12,13 @@ export type EmployeeType = {
   branch: string;
 };
 
+export type GetAllEmployeesActionType = {
+  search?: string;
+  jobStatus?: string;
+  page?: number;
+  limit?: number;
+};
+
 export enum JobStatus {
   Interview = "interview",
   PartTime = "part-time",
