@@ -17,6 +17,7 @@ function authenticateClerkId(): string {
   return userId;
 }
 
+// Create employee action
 export async function createEmployeeAction(
   values: CreateAndEditEmployeeType
 ): Promise<EmployeeType | null> {
@@ -96,5 +97,22 @@ export async function getAllEmployeesAction({
     return {employees, count: 0, page: 1, totalPages: 0};
   } catch (error) {
     return {employees: [], count: 0, page: 1, totalPages: 0};
+  }
+}
+
+// Delete employee action
+export async function deleteEmployeeAction(id: string): Promise<EmployeeType | null> {
+  const userId = authenticateClerkId();
+
+  try {
+    const employee: EmployeeType = await prisma.employee.delete({
+      where: {
+        id,
+        clerkId: userId,
+      },
+    });
+    return employee;
+  } catch (error) {
+    return null;
   }
 }

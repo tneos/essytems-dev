@@ -32,7 +32,7 @@ function EmployeeCard({employee}: {employee: EmployeeType}) {
         <Button asChild size="sm">
           <Link href={`/employees/${employee.id}`}>edit</Link>
         </Button>
-        <DeleteEmployeeBtn />
+        <DeleteEmployeeBtn id={employee.id} />
       </CardFooter>
     </Card>
   );
