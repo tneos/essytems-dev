@@ -10,6 +10,9 @@ import EmployeeInfo from "./EmployeeInfo";
 import DeleteEmployeeBtn from "./DeleteEmployeeBtn";
 
 function EmployeeCard({employee}: {employee: EmployeeType}) {
+  // Format date
+  const date = new Date(employee.createdAt).toLocaleDateString();
+
   return (
     <Card className="bg-muted">
       <CardHeader>
@@ -17,7 +20,14 @@ function EmployeeCard({employee}: {employee: EmployeeType}) {
         <CardDescription>{employee.fullName}</CardDescription>
       </CardHeader>
       <Separator />
-      <CardContent></CardContent>
+      <CardContent className="mt-4 grid grid-cols-2 gap-4">
+        <EmployeeInfo icon={<Briefcase />} text={employee.status} />
+        <EmployeeInfo icon={<MapPin />} text={employee.branch} />
+        <EmployeeInfo icon={<CalendarDays />} text={date} />
+        <Badge className="w-32 justify-center">
+          <EmployeeInfo icon={<RadioTower className="w-4 h-4" />} text={employee.status} />
+        </Badge>
+      </CardContent>
       <CardFooter className="flex gap-4">
         <Button asChild size="sm">
           <Link href={`/employees/${employee.id}`}>edit</Link>
