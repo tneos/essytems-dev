@@ -3,22 +3,18 @@ import {Control, Form} from "react-hook-form";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "./ui/select";
 import {FormControl, FormField, FormItem, FormLabel, FormMessage} from "./ui/form";
 import {Button} from "./ui/button";
-import {ChevronDownIcon} from "lucide-react";
-import {Label} from "./ui/label";
+import {CalendarIcon} from "lucide-react";
 import {Popover, PopoverContent, PopoverTrigger} from "./ui/popover";
 import {Calendar} from "./ui/calendar";
 import {Input} from "./ui/input";
+import {format} from "date-fns";
+import {cn} from "@/lib/utils";
 
 // Define props
 type CustomFormFieldProps = {
   name: string;
   control: Control<any>;
 };
-
-// type CustomFormDateProps = {
-//     open: boolean;
-//     date: Date;
-// }
 
 type CustomFormSelectProps = {
   name: string;
@@ -44,35 +40,44 @@ export function CustomFormField({name, control}: CustomFormFieldProps) {
   );
 }
 
-export function CustomFormDate() {
-  const [open, setOpen] = React.useState(false);
-  const [date, setDate] = React.useState<Date | undefined>(undefined);
-
+export function CustomFormDate({control}: {control: Control<any>}) {
   return (
-    <div className="flex flex-col w-full">
-      <Label htmlFor="date" className="px-1 mt-1">
-        Date of birth
-      </Label>
-      <Popover open={open} onOpenChange={setOpen}>
-        <PopoverTrigger asChild>
-          <Button variant="outline" id="date" className="gap-4 mt-3 justify-between font-normal">
-            {date ? date.toLocaleDateString() : "Select date"}
-            <ChevronDownIcon />
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="w-auto overflow-hidden p-0" align="start">
-          <Calendar
-            mode="single"
-            selected={date}
-            captionLayout="dropdown"
-            onSelect={date => {
-              setDate(date);
-              setOpen(false);
-            }}
-          />
-        </PopoverContent>
-      </Popover>
-    </div>
+    <FormField
+      control={control}
+      name="dob"
+      render={({field}) => (
+        <FormItem className="flex flex-col">
+          <FormLabel>Date of birth</FormLabel>
+          <Popover>
+            <PopoverTrigger asChild>
+              <FormControl>
+                <Button
+                  variant={"outline"}
+                  className={cn(
+                    "w-[240px] pl-3 text-left font-normal",
+                    !field.value && "text-muted-foreground"
+                  )}
+                >
+                  {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
+                  <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                </Button>
+              </FormControl>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0" align="start">
+              <Calendar
+                mode="single"
+                selected={field.value}
+                onSelect={field.onChange}
+                className="rounded-md border shadow-sm"
+                captionLayout="dropdown"
+              />
+            </PopoverContent>
+          </Popover>
+
+          <FormMessage />
+        </FormItem>
+      )}
+    />
   );
 }
 

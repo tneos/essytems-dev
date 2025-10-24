@@ -11,7 +11,7 @@ import DeleteEmployeeBtn from "./DeleteEmployeeBtn";
 
 function EmployeeCard({employee}: {employee: EmployeeType}) {
   // Format date
-  const date = new Date(employee.createdAt).toLocaleDateString();
+  const date = employee.dob.toLocaleDateString();
 
   return (
     <Card className="bg-muted">

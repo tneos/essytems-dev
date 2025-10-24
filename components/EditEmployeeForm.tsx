@@ -1,7 +1,5 @@
 "use client";
 
-import * as z from "zod";
-
 import {zodResolver} from "@hookform/resolvers/zod";
 import {useForm} from "react-hook-form";
 
@@ -14,69 +12,69 @@ import {
 import {Button} from "./ui/button";
 import {Form} from "./ui/form";
 
-import {useMutation, useQueryClient} from "@tanstack/react-query";
-import {createEmployeeAction} from "@/utils/actions";
+import {CustomFormField, CustomFormDate, CustomFormSelect} from "./FormComponents";
+import {useMutation, useQueryClient, useQuery} from "@tanstack/react-query";
+
+import {
+  createEmployeeAction,
+  getSingleEmployeeAction,
+  updateEmployeeAction,
+} from "@/utils/actions";
 import {useToast} from "./ui/use-toast";
 import {useRouter} from "next/navigation";
 
-import {CustomFormField, CustomFormSelect, CustomFormDate} from "./FormComponents";
-
-// const formSchema = z.object({
-//   username: z.string().min(2, {
-//     message: "Username must be at least 4 characters long",
-//   }),
-// });
-
-function CreateEmployeeForm() {
-  // Define form
-  const form = useForm<CreateAndEditEmployeeType>({
-    resolver: zodResolver(createAndEditEmployeeSchema),
-    defaultValues: {
-      position: "",
-      fullName: "",
-      dob: new Date(),
-      status: JobStatus.Interview,
-      branch: Branch.CoventGarden,
-    },
-  });
-
+function EditEmployeeForm({employeeId}: {employeeId: string}) {
   const queryClient = useQueryClient();
   const {toast} = useToast();
   const router = useRouter();
 
+  const {data} = useQuery({
+    queryKey: ["employee", employeeId],
+    queryFn: () => getSingleEmployeeAction(employeeId),
+  });
+
   const {mutate, isPending} = useMutation({
-    mutationFn: (values: CreateAndEditEmployeeType) => createEmployeeAction(values),
+    mutationFn: (values: CreateAndEditEmployeeType) => updateEmployeeAction(employeeId, values),
     onSuccess: data => {
       if (!data) {
-        toast({description: "there was an error"});
+        toast({
+          description: "there was an error",
+        });
         return;
       }
-      toast({description: "employee added"});
+      toast({description: "employee details updated successfully"});
       queryClient.invalidateQueries({queryKey: ["employees"]});
+      queryClient.invalidateQueries({queryKey: ["employee", employeeId]});
       queryClient.invalidateQueries({queryKey: ["stats"]});
-      queryClient.invalidateQueries({queryKey: ["charts"]});
-
-      // Navigate user to employees page
+      // Redirect user
       router.push("/employees");
+    },
+  });
+
+  // Define form
+  const form = useForm<CreateAndEditEmployeeType>({
+    resolver: zodResolver(createAndEditEmployeeSchema),
+    defaultValues: {
+      position: data?.position || "",
+      fullName: data?.fullName || "",
+      dob: data?.dob || undefined,
+      status: (data?.status as JobStatus) || JobStatus.FullTime,
+      branch: (data?.branch as Branch) || Branch.CoventGarden,
     },
   });
 
   // Submit handler
   function onSubmit(values: CreateAndEditEmployeeType) {
-    // Use of form values
     mutate(values);
-    // This will be type-safe and validated
-    console.log(values);
   }
-
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="bg-muted p-8 rounded">
-        <h2 className="capitalize font-semibold text-4xl mb-6">add employee</h2>
+      <form className="bg-muted p-8 rounded" onSubmit={form.handleSubmit(onSubmit)}>
+        <h2 className="capitalize font-semibold text-4xl mb-6">edit employee details</h2>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 items-start">
-          {/* Position */}
+          {/* position */}
           <CustomFormField name="position" control={form.control} />
-          {/* Full name */}
+          {/* company */}
           <CustomFormField name="fullName" control={form.control} />
           {/* Date of birth */}
           <CustomFormDate control={form.control} />
@@ -94,14 +92,12 @@ function CreateEmployeeForm() {
             labelText="Company Branch"
             items={Object.values(Branch)}
           />
-
           <Button type="submit" className="self-end capitalize" disabled={isPending}>
-            {isPending ? "loading" : "add employee"}
+            {isPending ? "updating..." : "edit job"}
           </Button>
         </div>
       </form>
     </Form>
   );
 }
-
-export default CreateEmployeeForm;
+export default EditEmployeeForm;

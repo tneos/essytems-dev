@@ -100,6 +100,51 @@ export async function getAllEmployeesAction({
   }
 }
 
+// Get single employee action
+export async function getSingleEmployeeAction(id: string): Promise<EmployeeType | null> {
+  let employee: EmployeeType | null = null;
+  const userId = authenticateClerkId();
+
+  try {
+    employee = await prisma.employee.findUnique({
+      where: {
+        id,
+        clerkId: userId,
+      },
+    });
+  } catch (error) {
+    employee = null;
+  }
+  // If employee not found redirect from edit component
+  if (!employee) {
+    redirect("/employees");
+  }
+  return employee;
+}
+
+// Update employee details action
+export async function updateEmployeeAction(
+  id: string,
+  values: CreateAndEditEmployeeType
+): Promise<EmployeeType | null> {
+  const userId = authenticateClerkId();
+
+  try {
+    const employee: EmployeeType = await prisma.employee.update({
+      where: {
+        id,
+        clerkId: userId,
+      },
+      data: {
+        ...values,
+      },
+    });
+    return employee;
+  } catch (error) {
+    return null;
+  }
+}
+
 // Delete employee action
 export async function deleteEmployeeAction(id: string): Promise<EmployeeType | null> {
   const userId = authenticateClerkId();
