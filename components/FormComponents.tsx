@@ -73,7 +73,6 @@ export function CustomFormDate({control}: {control: Control<any>}) {
               />
             </PopoverContent>
           </Popover>
-
           <FormMessage />
         </FormItem>
       )}
