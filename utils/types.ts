@@ -8,21 +8,21 @@ export type EmployeeType = {
   position: string;
   fullName: string;
   dob: Date;
-  status: string;
+  department: string;
   branch: string;
 };
 
 export type GetAllEmployeesActionType = {
   search?: string;
-  jobStatus?: string;
+  department?: string;
   page?: number;
   limit?: number;
 };
 
-export enum JobStatus {
-  Interview = "interview",
-  PartTime = "part-time",
-  FullTime = "full-time",
+export enum Department {
+  FrontOfHouse = "Front of House",
+  BackOfHouse = "Kitchen Staff",
+  Management = "Management Team",
 }
 
 export enum Branch {
@@ -40,7 +40,7 @@ export const createAndEditEmployeeSchema = z.object({
     message: "Name must be at least 4 characters long",
   }),
   dob: z.date(),
-  status: z.nativeEnum(JobStatus),
+  department: z.nativeEnum(Department),
   branch: z.nativeEnum(Branch),
 });
 

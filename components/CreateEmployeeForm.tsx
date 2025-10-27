@@ -6,7 +6,7 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {useForm} from "react-hook-form";
 
 import {
-  JobStatus,
+  Department,
   Branch,
   createAndEditEmployeeSchema,
   CreateAndEditEmployeeType,
@@ -35,7 +35,7 @@ function CreateEmployeeForm() {
       position: "",
       fullName: "",
       dob: new Date(),
-      status: JobStatus.Interview,
+      department: Department.FrontOfHouse,
       branch: Branch.CoventGarden,
     },
   });
@@ -81,12 +81,12 @@ function CreateEmployeeForm() {
           <CustomFormField name="fullName" control={form.control} />
           {/* Date of birth */}
           <CustomFormDate control={form.control} />
-          {/* Job status */}
+          {/* Department */}
           <CustomFormSelect
-            name="status"
+            name="department"
             control={form.control}
-            labelText="job status"
-            items={Object.values(JobStatus)}
+            labelText="department"
+            items={Object.values(Department)}
           />
           {/* Branch */}
           <CustomFormSelect

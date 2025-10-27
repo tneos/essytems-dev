@@ -47,7 +47,7 @@ export async function createEmployeeAction(
 // Get all employees action
 export async function getAllEmployeesAction({
   search,
-  jobStatus,
+  department,
   page = 1,
   limit = 10,
 }: GetAllEmployeesActionType): Promise<{
@@ -82,10 +82,10 @@ export async function getAllEmployeesAction({
       };
     }
 
-    if (jobStatus && jobStatus !== "all") {
+    if (department && department !== "all") {
       whereClause = {
         ...whereClause,
-        status: jobStatus,
+        department: department,
       };
     }
 
@@ -162,3 +162,10 @@ export async function deleteEmployeeAction(id: string): Promise<EmployeeType | n
     return null;
   }
 }
+
+// Get stats action
+// export async function getStatsAction(): Promise<{
+//   frontOfHouse: number;
+//   backOfHouse: number;
+//   management: number;
+// }> {}

@@ -21,11 +21,11 @@ function EmployeeCard({employee}: {employee: EmployeeType}) {
       </CardHeader>
       <Separator />
       <CardContent className="mt-4 grid grid-cols-2 gap-4">
-        <EmployeeInfo icon={<Briefcase />} text={employee.status} />
+        <EmployeeInfo icon={<Briefcase />} text={employee.department} />
         <EmployeeInfo icon={<MapPin />} text={employee.branch} />
         <EmployeeInfo icon={<CalendarDays />} text={date} />
-        <Badge className="w-32 justify-center">
-          <EmployeeInfo icon={<RadioTower className="w-4 h-4" />} text={employee.status} />
+        <Badge className="w-42 justify-center">
+          <EmployeeInfo icon={<RadioTower className="w-4 h-4" />} text={employee.department} />
         </Badge>
       </CardContent>
       <CardFooter className="flex gap-4">
