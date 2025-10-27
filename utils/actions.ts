@@ -13,7 +13,7 @@ import {Prisma} from "@prisma/client";
 
 function authenticateClerkId(): string {
   const {userId} = auth();
-  console.log("userId", userId);
+
   if (!userId) redirect("/");
   return userId;
 }
