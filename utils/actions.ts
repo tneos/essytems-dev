@@ -10,6 +10,7 @@ import {
 } from "./types";
 import {redirect} from "next/navigation";
 import {Prisma} from "@prisma/client";
+import {default as dayjs} from "dayjs";
 
 function authenticateClerkId(): string {
   const {userId} = auth();
@@ -164,8 +165,86 @@ export async function deleteEmployeeAction(id: string): Promise<EmployeeType | n
 }
 
 // Get stats action
-// export async function getStatsAction(): Promise<{
-//   frontOfHouse: number;
-//   backOfHouse: number;
-//   management: number;
-// }> {}
+export async function getStatsAction(): Promise<{
+  frontOfHouse: number;
+  backOfHouse: number;
+  management: number;
+}> {
+  const userId = authenticateClerkId();
+
+  try {
+    const stats = await prisma.employee.groupBy({
+      by: ["department"],
+      _count: {
+        department: true,
+      },
+      where: {
+        clerkId: userId,
+      },
+    });
+
+    const statsObject = stats.reduce((acc, curr) => {
+      acc[curr.department] = curr._count.department;
+      return acc;
+    }, {} as Record<string, number>);
+
+    // Rename object keys
+    statsObject.frontOfHouse = statsObject["Front of House"];
+    delete statsObject["Front of House"];
+    statsObject.backOfHouse = statsObject["Kitchen staff"];
+    delete statsObject["Kitchen staff"];
+    statsObject.management = statsObject["Management Team"];
+    delete statsObject["Management Team"];
+
+    // Default values when user signs up
+    const defaultStats = {
+      frontOfHouse: 0,
+      backOfHouse: 0,
+      management: 0,
+      ...statsObject,
+    };
+    return defaultStats;
+  } catch (error) {
+    redirect("/employees");
+  }
+}
+
+// Get charts data action
+export async function getChartsDataAction(): Promise<Array<{date: string; count: number}>> {
+  // Authenticate user
+  const userId = authenticateClerkId();
+  // Set start date for existing data
+  const sixMonthsAgo = dayjs().subtract(6, "month").toDate();
+
+  try {
+    const employees = await prisma.employee.findMany({
+      where: {
+        clerkId: userId,
+        updatedAt: {
+          gte: sixMonthsAgo,
+        },
+      },
+      orderBy: {
+        createdAt: "asc",
+      },
+    });
+
+    let employeesPerMonth = employees.reduce((acc, employee) => {
+      const date = dayjs(employee.createdAt).format("MMM YY");
+
+      // Check if date exists, add 1 to count if it does
+      const existingEntry = acc.find(entry => entry.date === date);
+      if (existingEntry) {
+        existingEntry.count += 1;
+      } else {
+        acc.push({date, count: 1});
+      }
+
+      return acc;
+    }, [] as Array<{date: string; count: number}>);
+
+    return employeesPerMonth;
+  } catch (error) {
+    redirect("/employees");
+  }
+}

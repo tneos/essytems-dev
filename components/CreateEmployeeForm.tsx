@@ -21,12 +21,6 @@ import {useRouter} from "next/navigation";
 
 import {CustomFormField, CustomFormSelect, CustomFormDate} from "./FormComponents";
 
-// const formSchema = z.object({
-//   username: z.string().min(2, {
-//     message: "Username must be at least 4 characters long",
-//   }),
-// });
-
 function CreateEmployeeForm() {
   // Define form
   const form = useForm<CreateAndEditEmployeeType>({
