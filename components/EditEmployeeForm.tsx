@@ -80,7 +80,7 @@ function EditEmployeeForm({employeeId}: {employeeId: string}) {
           <CustomFormDate control={form.control} />
           {/* Department */}
           <CustomFormSelect
-            name="status"
+            name="department"
             control={form.control}
             labelText="Department"
             items={Object.values(Department)}

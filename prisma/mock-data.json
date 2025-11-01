@@ -51,7 +51,7 @@
   {
     "position": "Assistant Manager",
     "fullName": "Kyle Jamieson",
-    "dob": "2000-09-31T09:00:00Z",
+    "dob": "1999-05-31T09:00:00Z",
     "department": "Management Team",
     "branch": "Liverpool Str",
     "createdAt": "2025-09-25T09:17:18Z"
@@ -100,7 +100,7 @@
     "position": "Chef",
     "fullName": "James Williamson",
     "dob": "1981-01-24T09:00:00Z",
-    "department": "Kitchen staff",
+    "department": "Kitchen Staff",
     "branch": "Covent Garden",
     "createdAt": "2025-10-04T09:17:18Z"
   },
@@ -108,7 +108,7 @@
     "position": "Sous Chef",
     "fullName": "Finley Loughton",
     "dob": "1990-12-04T09:00:00Z",
-    "department": "Kitchen staff",
+    "department": "Kitchen Staff",
     "branch": "Covent Garden",
     "createdAt": "2025-10-06T09:17:18Z"
   },
@@ -116,7 +116,7 @@
     "position": "Commis Chef",
     "fullName": "Thomas Rizzoni",
     "dob": "1996-05-29T09:00:00Z",
-    "department": "Kitchen staff",
+    "department": "Kitchen Staff",
     "branch": "Covent Garden",
     "createdAt": "2025-10-06T09:17:18Z"
   },
@@ -124,7 +124,7 @@
     "position": "Kitchen Porter",
     "fullName": "Kyle Foster",
     "dob": "2004-09-25T09:00:00Z",
-    "department": "Kitchen staff",
+    "department": "Kitchen Staff",
     "branch": "Covent Garden",
     "createdAt": "2025-09-02T09:17:18Z"
   },
@@ -164,7 +164,7 @@
     "position": "Chef",
     "fullName": "John Tomasson",
     "dob": "1978-03-29T09:00:00Z",
-    "department": "Kitchen staff",
+    "department": "Kitchen Staff",
     "branch": "Charing Cross",
     "createdAt": "2025-08-02T09:17:18Z"
   },
@@ -172,7 +172,7 @@
     "position": "Sous Chef",
     "fullName": "Chris Houghton",
     "dob": "1990-12-22T09:00:00Z",
-    "department": "Kitchen staff",
+    "department": "Kitchen Staff",
     "branch": "Charing Cross",
     "createdAt": "2025-08-02T09:17:18Z"
   },
@@ -180,7 +180,7 @@
     "position": "Commis Chef",
     "fullName": "Sam Fowler",
     "dob": "1996-04-29T09:00:00Z",
-    "department": "Kitchen staff",
+    "department": "Kitchen Staff",
     "branch": "Charing Cross",
     "createdAt": "2025-08-02T09:17:18Z"
   },
@@ -188,7 +188,7 @@
     "position": "Kitchen Porter",
     "fullName": "Terry Smith",
     "dob": "2005-10-19T09:00:00Z",
-    "department": "Kitchen staff",
+    "department": "Kitchen Staff",
     "branch": "Charing Cross",
     "createdAt": "2025-10-02T09:17:18Z"
   }

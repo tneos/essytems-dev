@@ -7,12 +7,12 @@ import {useQuery} from "@tanstack/react-query";
 function EmployeesList() {
   const searchParams = useSearchParams();
   const search = searchParams.get("search") || "";
-  const jobStatus = searchParams.get("jobStatus") || "";
+  const department = searchParams.get("department") || "";
   const pageNumber = Number(searchParams.get("page") || 1);
 
   const {data, isPending} = useQuery({
-    queryKey: ["employees", search, jobStatus, pageNumber],
-    queryFn: () => getAllEmployeesAction({search, jobStatus, page: pageNumber}),
+    queryKey: ["employees", search, department, pageNumber],
+    queryFn: () => getAllEmployeesAction({search, department, page: pageNumber}),
   });
 
   const employees = data?.employees || [];

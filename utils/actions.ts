@@ -38,6 +38,7 @@ export async function createEmployeeAction(
         clerkId: userId,
       },
     });
+    console.log(employee);
     return employee;
   } catch (error) {
     console.log(error);
@@ -191,8 +192,8 @@ export async function getStatsAction(): Promise<{
     // Rename object keys
     statsObject.frontOfHouse = statsObject["Front of House"];
     delete statsObject["Front of House"];
-    statsObject.backOfHouse = statsObject["Kitchen staff"];
-    delete statsObject["Kitchen staff"];
+    statsObject.backOfHouse = statsObject["Kitchen Staff"];
+    delete statsObject["Kitchen Staff"];
     statsObject.management = statsObject["Management Team"];
     delete statsObject["Management Team"];
 
