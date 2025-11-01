@@ -11,6 +11,7 @@ import {
 import {redirect} from "next/navigation";
 import {Prisma} from "@prisma/client";
 import {default as dayjs} from "dayjs";
+import {resolve} from "path";
 
 function authenticateClerkId(): string {
   const {userId} = auth();
