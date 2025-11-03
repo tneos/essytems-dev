@@ -41,7 +41,7 @@ This application is built using a robust, modern, and production-ready technolog
 | **Styling**            | **Tailwind CSS** | A utility-first CSS framework for rapid UI development and modern design.        |
 | **Authentication**     | **Clerk**        | Secure, scalable **user authentication** and user management solution.           |
 
-**Zod Integration:** Simple, powerful schema validation for forms, API request/response bodies, and environment variables.
+| **Data Validation:** | **Zod** | Simple, powerful schema validation for forms, API request/response bodies, and environment variables. |
 | **Database ORM** | **Prisma** | Next-generation ORM for Node.js and TypeScript, used to interact with the database. |
 | **Database** | **PostgreSQL** | A powerful, open-source object-relational database system. |
 | **Deployment** | **Vercel** | The cloud platform for frontend developers, optimized for Next.js deployments. |
