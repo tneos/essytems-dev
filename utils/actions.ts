@@ -91,14 +91,26 @@ export async function getAllEmployeesAction({
         department: department,
       };
     }
+    // Number of employees skipped for each page
+    const skip = (page - 1) * limit;
 
     const employees: EmployeeType[] = await prisma.employee.findMany({
       where: whereClause,
+      skip,
+      take: limit,
       orderBy: {
         createdAt: "desc",
       },
     });
-    return {employees, count: 0, page: 1, totalPages: 0};
+
+    // Count employees based on search conditions
+    const count: number = await prisma.employee.count({
+      where: whereClause,
+    });
+    // Calculate number of pages
+    const totalPages = Math.ceil(count / limit);
+
+    return {employees, count, page, totalPages};
   } catch (error) {
     return {employees: [], count: 0, page: 1, totalPages: 0};
   }

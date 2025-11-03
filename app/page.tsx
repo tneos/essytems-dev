@@ -16,7 +16,7 @@ const HomePage = () => {
             Hospitality <span className="text-primary">recruitment</span> software
           </h3>
           <p className="leading-loose max-w-md mt-4">
-            Find and manage flexible staff who will delight your customers with ES Systems
+            Find and manage flexible staff who will delight your customers with the ES Systems
             hospitality staffing application.
           </p>
           <Button asChild className="mt-4">

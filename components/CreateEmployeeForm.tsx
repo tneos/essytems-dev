@@ -1,7 +1,5 @@
 "use client";
 
-import * as z from "zod";
-
 import {zodResolver} from "@hookform/resolvers/zod";
 import {useForm} from "react-hook-form";
 
@@ -57,7 +55,6 @@ function CreateEmployeeForm() {
 
   // Submit handler
   function onSubmit(values: CreateAndEditEmployeeType) {
-    //console.log(values);
     // Use of form values
     mutate(values);
     // This will be type-safe and validated
