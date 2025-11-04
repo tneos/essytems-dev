@@ -1,17 +1,18 @@
 "use client";
 import Logo from "../assets/es-systems-logo.png";
 import links from "@/utils/links";
-import Image from "next/image";
+import Image, {StaticImageData} from "next/image";
 import Link from "next/link";
 import {Button} from "./ui/button";
 import {usePathname} from "next/navigation";
+import ImageLink from "./ImageLink";
 
 function Sidebar() {
   const pathname = usePathname();
 
   return (
     <aside className="py-4 px-8 bg-muted h-full">
-      <Image src={Logo} alt="logo" className="h-36 w-36 object-cover mx-4" />
+      <ImageLink src={Logo.src} href="/" />
       <div className="flex flex-col mt-20 gap-y-4">
         {links.map(link => {
           return (
