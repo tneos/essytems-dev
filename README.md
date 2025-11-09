@@ -34,16 +34,16 @@ The application provides a streamlined experience for employers through a dedica
 
 This application is built using a robust, modern, and production-ready technology stack:
 
-| Category               | Technology       | Description                                                                                           |
-| :--------------------- | :--------------- | :---------------------------------------------------------------------------------------------------- |
-| **Frontend Framework** | **Next.js**      | A powerful React framework for server-side rendering and static site generation.                      |
-| **Language**           | **TypeScript**   | Adds static typing to JavaScript for improved code quality and maintainability.                       |
-| **Styling**            | **Tailwind CSS** | A utility-first CSS framework for rapid UI development and modern design.                             |
-| **Authentication**     | **Clerk**        | Secure, scalable **user authentication** and user management solution.                                |
-| **Data Validation**    | **Zod**          | Simple, powerful schema validation for forms, API request/response bodies, and environment variables. |
-| **Database ORM**       | **Prisma**       | Next-generation ORM for Node.js and TypeScript, used to interact with the database.                   |
-| **Database**           | **PostgreSQL**   | A powerful, open-source object-relational database system.                                            |
-| **Deployment**         | **Vercel**       | The cloud platform for frontend developers, optimized for Next.js deployments.                        |
+| Category                 | Technology                   | Description                                                                                             |
+| :----------------------- | :--------------------------- | :------------------------------------------------------------------------------------------------------ |
+| **Frontend Framework**   | **Next.js**                  | A powerful React framework for server-side rendering and static site generation.                        |
+| **Language**             | **TypeScript**               | Adds static typing to JavaScript for improved code quality and maintainability.                         |
+| **Styling & Components** | **shadcn/ui & Tailwind CSS** | For rapidly implementing a clean, modern, and accessible design system without writing boilerplate CSS. |
+| **Authentication**       | **Clerk**                    | Secure, scalable **user authentication** and user management solution.                                  |
+| **Data Validation**      | **Zod**                      | Simple, powerful schema validation for forms, API request/response bodies, and environment variables.   |
+| **Database ORM**         | **Prisma**                   | Next-generation ORM for Node.js and TypeScript, used to interact with the database.                     |
+| **Database**             | **PostgreSQL**               | A powerful, open-source object-relational database system.                                              |
+| **Deployment**           | **Vercel**                   | The cloud platform for frontend developers, optimized for Next.js deployments.                          |
 
 ---
 
