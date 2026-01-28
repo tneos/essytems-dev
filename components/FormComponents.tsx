@@ -46,7 +46,7 @@ export function CustomFormDate({control}: {control: Control<any>}) {
       control={control}
       name="dob"
       render={({field}) => (
-        <FormItem className="flex flex-col">
+        <FormItem>
           <FormLabel>Date of birth</FormLabel>
           <Popover>
             <PopoverTrigger asChild>
@@ -55,7 +55,7 @@ export function CustomFormDate({control}: {control: Control<any>}) {
                   variant={"outline"}
                   className={cn(
                     "w-[240px] pl-3 text-left font-normal",
-                    !field.value && "text-muted-foreground"
+                    !field.value && "text-muted-foreground",
                   )}
                 >
                   {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
