@@ -1,7 +1,6 @@
 "use client";
 import Logo from "../assets/es-systems-logo.png";
 import links from "@/utils/links";
-import Image, {StaticImageData} from "next/image";
 import Link from "next/link";
 import {Button} from "./ui/button";
 import {usePathname} from "next/navigation";

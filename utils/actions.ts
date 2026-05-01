@@ -11,7 +11,6 @@ import {
 import {redirect} from "next/navigation";
 import {Prisma} from "@prisma/client";
 import {default as dayjs} from "dayjs";
-import {resolve} from "path";
 
 function authenticateClerkId(): string {
   const {userId} = auth();
@@ -22,7 +21,7 @@ function authenticateClerkId(): string {
 
 // Create employee action
 export async function createEmployeeAction(
-  values: CreateAndEditEmployeeType
+  values: CreateAndEditEmployeeType,
 ): Promise<EmployeeType | null> {
   // Development only , button display when form being submitted
   await new Promise(resolve => setTimeout(resolve, 3000));
@@ -141,7 +140,7 @@ export async function getSingleEmployeeAction(id: string): Promise<EmployeeType 
 // Update employee details action
 export async function updateEmployeeAction(
   id: string,
-  values: CreateAndEditEmployeeType
+  values: CreateAndEditEmployeeType,
 ): Promise<EmployeeType | null> {
   const userId = authenticateClerkId();
 
@@ -197,10 +196,13 @@ export async function getStatsAction(): Promise<{
       },
     });
 
-    const statsObject = stats.reduce((acc, curr) => {
-      acc[curr.department] = curr._count.department;
-      return acc;
-    }, {} as Record<string, number>);
+    const statsObject = stats.reduce(
+      (acc, curr) => {
+        acc[curr.department] = curr._count.department;
+        return acc;
+      },
+      {} as Record<string, number>,
+    );
 
     // Rename object keys
     statsObject.frontOfHouse = statsObject["Front of House"];
@@ -243,19 +245,22 @@ export async function getChartsDataAction(): Promise<Array<{date: string; count:
       },
     });
 
-    let employeesPerMonth = employees.reduce((acc, employee) => {
-      const date = dayjs(employee.createdAt).format("MMM YY");
+    let employeesPerMonth = employees.reduce(
+      (acc, employee) => {
+        const date = dayjs(employee.createdAt).format("MMM YY");
 
-      // Check if date exists, add 1 to count if it does
-      const existingEntry = acc.find(entry => entry.date === date);
-      if (existingEntry) {
-        existingEntry.count += 1;
-      } else {
-        acc.push({date, count: 1});
-      }
+        // Check if date exists, add 1 to count if it does
+        const existingEntry = acc.find(entry => entry.date === date);
+        if (existingEntry) {
+          existingEntry.count += 1;
+        } else {
+          acc.push({date, count: 1});
+        }
 
-      return acc;
-    }, [] as Array<{date: string; count: number}>);
+        return acc;
+      },
+      [] as Array<{date: string; count: number}>,
+    );
 
     return employeesPerMonth;
   } catch (error) {

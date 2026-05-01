@@ -12,7 +12,7 @@ function ButtonContainer({currentPage, totalPages}: ButtonContainerProps) {
   const router = useRouter();
   const pathname = usePathname();
 
-  // Creare array out of total pages
+  // Create array out of total pages
   const pageButtons = Array.from({length: totalPages}, (_, i) => i + 1);
 
   const handlePageChange = (page: number) => {
